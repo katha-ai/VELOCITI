@@ -5,7 +5,7 @@
 
 ## Welcome to the VELOCITI, this repository is to provide code for Evaluation of models on VELOCITI, and provide a jupyter notebook to visualize all the data presented in the benchmark.
 
-## ⭐️ For instant visualization of data samples, please visit our project page: [velociti-benchmark.github.io](velociti-benchmark.github.io)
+## ⭐️ For instant visualization of data samples, please visit our [Project Page](https://katha-ai.github.io/projects/velociti/)
 
 
 # Set-Up for Visualizing Data 📊
