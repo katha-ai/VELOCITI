@@ -9,7 +9,7 @@ class ivatDataset(Dataset):
     """
     Dataset class for event-caption-matching task. For each video, EV1 and EV5 frames and captions are returned.
     """
-    def __init__(self, data_dict, transform):
+    def __init__(self, data_dict, transform=None, frames_flag=True):
         """
         data_dict -> dict : containing paths of all data.
         """
@@ -19,29 +19,39 @@ class ivatDataset(Dataset):
         self.vidsitu_dict = json.load(open(self.data_dict.vidsitu_dict_path, 'r'))
         
         self.vid_list = list(self.vidsitu_dict.keys())
+        
+        self.frames_flag = frames_flag
                 
     def __getitem__(self, idx):
         vid_name = self.vid_list[idx]
         
-        frames_ev1 = torch.cat((get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                                  vid_name=vid_name,
-                                                  event_id=0,
-                                                  transform=self.transform),
-                                
-                                get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                                  vid_name=vid_name,
-                                                  event_id=1,
-                                                  transform=self.transform)))
-        
-        frames_ev5 = torch.cat((get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                                  vid_name=vid_name,
-                                                  event_id=3,
-                                                  transform=self.transform),
-                                
-                                get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                                  vid_name=vid_name,
-                                                  event_id=4,
-                                                  transform=self.transform)))
+        if self.frames_flag:
+            frames_ev1 = torch.cat((get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                                    vid_name=vid_name,
+                                                    event_id=0,
+                                                    transform=self.transform),
+                                    
+                                    get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                                    vid_name=vid_name,
+                                                    event_id=1,
+                                                    transform=self.transform)))
+            
+            frames_ev5 = torch.cat((get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                                    vid_name=vid_name,
+                                                    event_id=3,
+                                                    transform=self.transform),
+                                    
+                                    get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                                    vid_name=vid_name,
+                                                    event_id=4,
+                                                    transform=self.transform)))
+        else:
+            frames_ev1 = "{}/{}/{}_p1.mp4".format(self.data_dict.videos_4s_path,
+                                    vid_name,
+                                    vid_name)
+            frames_ev5 = "{}/{}/{}_p2.mp4".format(self.data_dict.videos_4s_path,
+                                    vid_name,
+                                    vid_name)
         
         
         pos_cap_ev1 = self.vidsitu_dict[vid_name]['Ev1']['pos']

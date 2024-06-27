@@ -9,11 +9,13 @@ class negDataset(Dataset):
     Make this return all possibilities of captions.
     Dataset for video-to-text tasks.
     """
-    def __init__(self, data_dict, transform, neg_sampling):
+    def __init__(self, data_dict, transform=None, neg_sampling=
+    'ag_iden', frames_flag=True):
         
         self.data_dict = edict(data_dict)
         self.transform = transform
         self.neg_sampling = neg_sampling
+        self.frames_flag = frames_flag
             
                 
         if self.neg_sampling == 'ag_iden':
@@ -55,9 +57,13 @@ class negDataset(Dataset):
         
         vid_name, ev = self.vid_ev_list[idx]
                 
-        frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                   vid_name=vid_name,
-                                   transform=self.transform)
+        if self.frames_flag:
+            frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                    vid_name=vid_name,
+                                    transform=self.transform)
+        else:
+            frames = "{}/{}.mp4".format(self.data_dict.videos_10s_path,
+                                    vid_name)
         
     
         pos_cap = self.ev_data[vid_name][ev]['pos']

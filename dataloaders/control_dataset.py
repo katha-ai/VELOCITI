@@ -9,7 +9,7 @@ class controlDataset(Dataset):
     Make this return all possibilities of captions.
     Dataset for video-to-text tasks.
     """
-    def __init__(self, data_dict, transform):
+    def __init__(self, data_dict, transform=None, frames_flag=True):
         """
         data_dict -> dict : containing paths of all data.
         neg_sampling -> str : 'control' or 'arg0en' or 'arg0hn' or 'verb' or 'manner' or 'event'.
@@ -28,6 +28,8 @@ class controlDataset(Dataset):
         for vid in vid_list:
             for ev in self.ev_data[vid]:
                 self.vid_ev_list.append((vid,ev))
+
+        self.frames_flag = frames_flag
             
     def __getitem__(self, idx):
         """
@@ -43,14 +45,19 @@ class controlDataset(Dataset):
         
         neg_randvid_name = self.control_neg_caps[vid_name][ev]['neg_vid']
         
-        
-        frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                   vid_name=vid_name,
-                                   transform=self.transform)
-        
-        neg_frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
-                                       vid_name=neg_randvid_name,
-                                       transform=self.transform)
+        if self.frames_flag:
+            frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                    vid_name=vid_name,
+                                    transform=self.transform)
+            
+            neg_frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
+                                        vid_name=neg_randvid_name,
+                                        transform=self.transform)
+        else:
+            frames = "{}/{}.mp4".format(self.data_dict.videos_10s_path,
+                                    vid_name)
+            neg_frames = "{}/{}.mp4".format(self.data_dict.videos_10s_path,
+                                    neg_randvid_name)
     
         pos_cap = self.control_neg_caps[vid_name][ev]['pos_cap']
         neg_cap = self.control_neg_caps[vid_name][ev]['neg_cap']

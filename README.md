@@ -51,10 +51,10 @@ Unzip the data, and you should see the directory structure as below.
 │   ├── frames  [900 entries]
 │   ├── pos_caps.json
 │   ├── sequence.json
-│   └── vidsitu_dict.json
-└── videos
-    ├── velociti_videos_10s  [900 entries]
-    └── velociti_videos_4s  [900 entries]
+│   ├── vidsitu_dict.json
+│   └── videos
+        ├── velociti_videos_10s  [900 entries]
+        └── velociti_videos_4s  [900 entries]
 ```
 
 
@@ -113,6 +113,18 @@ python main_eval.py --num_workers 4 \
 
 ```
 
+# Video-LLM Evaluations
+
+Video LLMs are evaluated using the entailment score as described in `entailment.py`.
+
+[Video LLaVA](https://github.com/PKU-YuanGroup/Video-LLaVA) can be evaluated by running the below command with the test name.
+
+```
+python video_llava_eval.py --test ivat \
+                           --output output \
+                           --seed 1000
+
+```
 
 <hr>
 
