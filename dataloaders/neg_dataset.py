@@ -79,4 +79,5 @@ class negDataset(Dataset):
         return data
 
     def __len__(self):
-        return len(self.vid_ev_list)
+        # return len(self.vid_ev_list)
+        return 1

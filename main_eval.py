@@ -223,7 +223,6 @@ if __name__ == "__main__":
     parser.add_argument('--exhaustive_log', action="store_true", default=True, help="wether to log the results of each sample")
 
     
-    
     args = parser.parse_args()
     
     device = torch.device(args.device)

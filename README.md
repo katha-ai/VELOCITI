@@ -10,11 +10,14 @@
 
 # Set-Up for Visualizing Data 📊
 
-### Setting-up the Conda Environment
+### Setting-up the Environment For CLIP Code and Data Visualiser
+Create an environment in the choice of your environment manager, and simply install the requirement via
 ```
-conda env create --name velo --file environments/visualizer_env.yaml
-conda activate velo
+cd VELOCITI
+# activate your conda or venv environment
+pip install -r environments/clip_vis_requirements.txt
 ```
+The code is tested to run with `python 3.10.14`.
 
 ### Setting-up Data 💿
 
@@ -74,12 +77,15 @@ pip install -r environments/requirements.txt
 
 ### NOTE 🔔
  
-CLIP-ViP model has to be manually downloaded and placed within the folder `.hf_cache` in the root directory of this repository.
-Note: All the models, except `CLIP-ViP`, will be automatically downloaded by the script, inside the directory `.hf_cache` in the root folder. The model can be found [here](https://github.com/microsoft/XPretrain/tree/main/CLIP-ViP).
+[ViFi-CLIP](https://github.com/muzairkhattak/ViFi-CLIP) model has to be manually downloaded and placed within the folder `.hfcache` (the default cache directory as in the code) in the root directory of this repository. Precisely, [this link](https://mbzuaiac-my.sharepoint.com/personal/uzair_khattak_mbzuai_ac_ae/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fuzair%5Fkhattak%5Fmbzuai%5Fac%5Fae%2FDocuments%2Fvifi%5Fclip%5Fweights%2Fzero%5Fshot%5Fweights%2Fvifi%5Fclip%5F10%5Fepochs%5Fk400%5Ffull%5Ffinetuned%2Epth&parent=%2Fpersonal%2Fuzair%5Fkhattak%5Fmbzuai%5Fac%5Fae%2FDocuments%2Fvifi%5Fclip%5Fweights%2Fzero%5Fshot%5Fweights&ga=1) may be used.
 
-If, you wish a different path for the cache files, modify the  `main_eval.py` file accordingly.
+Rest all the models, will be automatically downloaded by the script, inside the directory `.hfcache` in the root folder. 
 
-After ensuring the above directory structure, and simply run
+Note: It is observed that `CLIP-ViP` maybe slow to download, the script downloads the model and might consume some time in doing so. The model is available [here](https://github.com/microsoft/XPretrain/tree/main/CLIP-ViP), if required.
+
+If, you wish a different path for the cache files, modify the  `main_eval.py` file accordingly, and also the above cache paths locations of the model files.
+
+After ensuring the above directory structure, simply run
 
 ```
 python main_eval.py --num_workers 4 \

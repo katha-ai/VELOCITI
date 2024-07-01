@@ -68,5 +68,6 @@ class ivatDataset(Dataset):
         }
 
     def __len__(self):
-        return len(self.vid_list)
+        # return len(self.vid_list)
+        return 1
     
