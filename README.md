@@ -119,11 +119,13 @@ python main_eval.py --num_workers 4 \
 
 ```
 
-# Video-LLM Evaluations
+# Video-LLM Evaluations 📽️
 
-Video LLMs are evaluated using the entailment score as described in `entailment.py`.
+We also provide the scripts for evaluating the Video-LLMs in our work. These scripts may need to be updated as per changes in their original repositories. Though cloning this repo and working on inferencing these models might work, we recommend cloning respective model as separate projects, and setting up separate environments as per their documentations.
 
-[Video LLaVA](https://github.com/PKU-YuanGroup/Video-LLaVA) can be evaluated by running the below command with the test name.
+
+## [Video LLaVA](https://github.com/PKU-YuanGroup/Video-LLaVA)
+This can be evaluated by running the below command with the test name. Scripts are provided in folder `video_llava/`
 
 ```
 python video_llava_eval.py --test ivat \
@@ -133,6 +135,11 @@ python video_llava_eval.py --test ivat \
 ```
 
 <hr>
+
+## [PLLaVA](https://github.com/magic-research/PLLaVA)
+The scripts with some more instructions are in the folder `pllava/`
+
+
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 

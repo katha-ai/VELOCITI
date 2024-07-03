@@ -9,11 +9,12 @@
 import torch
 import clip
 from PIL import Image
-cache_dir = r'/data'
+
+cache_dir = r"/data"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device, download_root=cache_dir)
-#or
+# or
 model, preprocess = clip.load("VIT-L/14", device=device, download_root=cache_dir)
 
 image = preprocess(Image.open("CLIP.png")).unsqueeze(0).to(device)
@@ -24,7 +25,7 @@ with torch.no_grad():
     text_features = model.encode_text(text)
     logits_per_image, logits_per_text = model(image, text)
     probs = logits_per_image.softmax(dim=-1).cpu().numpy()
-    
+
 # ------------------------------------------------------------------------------------------
 # OPEN-CLIP Models [https://github.com/mlfoundations/open_clip] #
 # EvaCLIP-L/14
@@ -35,13 +36,15 @@ import torch
 from PIL import Image
 import open_clip
 
-model, _, preprocess = open_clip.create_model_and_transforms('ViT-L-14',
-                                                             pretrained='timm/eva02_large_patch14_clip_224.merged2b_s4b_b131k',
-                                                             device = device,
-                                                             cache_dir=cache_dir)
+model, _, preprocess = open_clip.create_model_and_transforms(
+    "ViT-L-14",
+    pretrained="timm/eva02_large_patch14_clip_224.merged2b_s4b_b131k",
+    device=device,
+    cache_dir=cache_dir,
+)
 
 model.eval()  # model in train mode by default, impacts some models with BatchNorm or stochastic depth active
-tokenizer = open_clip.get_tokenizer('ViT-L-14')
+tokenizer = open_clip.get_tokenizer("ViT-L-14")
 
 image = preprocess(Image.open("docs/CLIP.png")).unsqueeze(0)
 text = tokenizer(["a diagram", "a dog", "a cat"])
@@ -67,6 +70,7 @@ print("Label probs:", text_probs)  # prints: [[1., 0., 0.]]
 from PIL import Image
 import requests
 import os
+
 os.environ["HF_HOME"] = cache_dir
 from transformers import AutoProcessor, AutoModel
 import torch
@@ -89,7 +93,7 @@ with torch.no_grad():
     outputs = model(**inputs)
 
 logits_per_image = outputs.logits_per_image
-probs = torch.sigmoid(logits_per_image) # these are the probabilities
+probs = torch.sigmoid(logits_per_image)  # these are the probabilities
 print(f"{probs[0][0]:.1%} that image 0 is '{texts[0]}'")
 
 
@@ -109,9 +113,12 @@ path = os.path.join(cache_dir, "negclip.pth")
 if not os.path.exists(path):
     print(f"Downloading the NegCLIP model to path {path}")
     import gdown
+
     gdown.download(id="1ooVVPxB-tvptgmHlIMMFGV3Cg-IrhbRZ", output=path, quiet=False)
-    
-model, _, image_preprocess = open_clip.create_model_and_transforms('ViT-B-32', pretrained=path, device=device)
+
+model, _, image_preprocess = open_clip.create_model_and_transforms(
+    "ViT-B-32", pretrained=path, device=device
+)
 model = model.eval()
 
 
@@ -133,44 +140,50 @@ from transformers import CLIPTokenizerFast
 from transformers import AutoProcessor
 from utils.CLIP_VIP import CLIPModel
 
-extraCfg = edict({
-    "type": "ViP",
-    "temporal_size": 12,
-    "if_use_temporal_embed": 1,
-    "logit_scale_init_value": 4.60,
-    "add_cls_num": 3
-})
+extraCfg = edict(
+    {
+        "type": "ViP",
+        "temporal_size": 12,
+        "if_use_temporal_embed": 1,
+        "logit_scale_init_value": 4.60,
+        "add_cls_num": 3,
+    }
+)
 
-clipconfig = CLIPConfig.from_pretrained("openai/clip-vit-base-patch32", cache_dir=cache_dir)
+clipconfig = CLIPConfig.from_pretrained(
+    "openai/clip-vit-base-patch32", cache_dir=cache_dir
+)
 clipconfig.vision_additional_config = extraCfg
 
 checkpoint = torch.load(f"{cache_dir}/pretrain_clipvip_base_32.pt")
-cleanDict = { key.replace("clipmodel.", "") : value for key, value in checkpoint.items() }
-model =  CLIPModel(config=clipconfig)
+cleanDict = {key.replace("clipmodel.", ""): value for key, value in checkpoint.items()}
+model = CLIPModel(config=clipconfig)
 model.load_state_dict(cleanDict)
 
 # ------- text embedding -----
-tokenizer = CLIPTokenizerFast.from_pretrained("openai/clip-vit-base-patch32", cache_dir=cache_dir)
+tokenizer = CLIPTokenizerFast.from_pretrained(
+    "openai/clip-vit-base-patch32", cache_dir=cache_dir
+)
 tokens = tokenizer(["in the forest"], padding=True, return_tensors="pt")
 textOutput = model.get_text_features(**tokens)
 print(textOutput.shape)
 
 # ------- video embedding -----
-processor = AutoProcessor.from_pretrained("microsoft/xclip-base-patch16", cache_dir=cache_dir)
+processor = AutoProcessor.from_pretrained(
+    "microsoft/xclip-base-patch16", cache_dir=cache_dir
+)
 
 clip_len = 12
 video_frames = np.random.rand(3, 224, 224, 3)
 pixel_values = processor(video_frames, return_tensors="pt").pixel_values
 
-inputs = {
-        "if_norm": True,
-        "pixel_values": pixel_values}
+inputs = {"if_norm": True, "pixel_values": pixel_values}
 
 with torch.no_grad():
     video_features = model.get_image_features(**inputs)
 print(video_features.shape)
 
 with torch.no_grad():
-  sim = F.cosine_similarity(textOutput, video_features, dim=1)
-  print(sim) 
-  # [ 0.1142 ]
+    sim = F.cosine_similarity(textOutput, video_features, dim=1)
+    print(sim)
+    # [ 0.1142 ]

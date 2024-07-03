@@ -1,8 +1,8 @@
 from torch.utils.data import Dataset
 from easydict import EasyDict as edict
 import numpy as np
-from utils.utils import get_frames_tensor, shuffle_with_constraint
 import json
+from os.path import join
 
 
 class controlDataset(Dataset):
@@ -11,7 +11,7 @@ class controlDataset(Dataset):
     Dataset for video-to-text tasks.
     """
 
-    def __init__(self, data_dict, transform=None, frames_flag=True):
+    def __init__(self, data_dict):
         """
         data_dict -> dict : containing paths of all data.
         neg_sampling -> str : 'control' or 'arg0en' or 'arg0hn' or 'verb' or 'manner' or 'event'.
@@ -19,7 +19,6 @@ class controlDataset(Dataset):
         """
 
         self.data_dict = edict(data_dict)
-        self.transform = transform
 
         self.control_neg_caps = json.load(open(self.data_dict.control_neg_caps, "r"))
         self.ev_data = self.control_neg_caps
@@ -29,8 +28,6 @@ class controlDataset(Dataset):
         for vid in vid_list:
             for ev in self.ev_data[vid]:
                 self.vid_ev_list.append((vid, ev))
-
-        self.frames_flag = frames_flag
 
     def __getitem__(self, idx):
         """
@@ -46,32 +43,17 @@ class controlDataset(Dataset):
 
         neg_randvid_name = self.control_neg_caps[vid_name][ev]["neg_vid"]
 
-        if self.frames_flag:
-            frames = get_frames_tensor(
-                frames_path=self.data_dict.frames_path,
-                vid_name=vid_name,
-                transform=self.transform,
-            )
-
-            neg_frames = get_frames_tensor(
-                frames_path=self.data_dict.frames_path,
-                vid_name=neg_randvid_name,
-                transform=self.transform,
-            )
-        else:
-            frames = "{}/{}.mp4".format(self.data_dict.videos_10s_path, vid_name)
-            neg_frames = "{}/{}.mp4".format(
-                self.data_dict.videos_10s_path, neg_randvid_name
-            )
-
         pos_cap = self.control_neg_caps[vid_name][ev]["pos_cap"]
         neg_cap = self.control_neg_caps[vid_name][ev]["neg_cap"]
+
+        vid_path = join(self.data_dict.frames_path, vid_name + ".mp4")
+        neg_vid_path = join(self.data_dict.frames_path, neg_randvid_name + ".mp4")
 
         data = {
             "vid_name": vid_name,
             "event": ev,
-            "frames": frames,
-            "neg_frames": neg_frames,
+            "vid_path": vid_path,
+            "neg_vid_path": neg_vid_path,
             "pos_cap": pos_cap,
             "neg_cap": neg_cap,
         }

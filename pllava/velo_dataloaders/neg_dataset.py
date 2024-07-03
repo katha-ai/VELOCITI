@@ -1,8 +1,8 @@
 from torch.utils.data import Dataset
 from easydict import EasyDict as edict
 import numpy as np
-from utils.utils import get_frames_tensor, shuffle_with_constraint
 import json
+from os.path import join
 
 
 class negDataset(Dataset):
@@ -11,14 +11,10 @@ class negDataset(Dataset):
     Dataset for video-to-text tasks.
     """
 
-    def __init__(
-        self, data_dict, transform=None, neg_sampling="ag_iden", frames_flag=True
-    ):
+    def __init__(self, data_dict, neg_sampling):
 
         self.data_dict = edict(data_dict)
-        self.transform = transform
         self.neg_sampling = neg_sampling
-        self.frames_flag = frames_flag
 
         if self.neg_sampling == "ag_iden":
             self.ev_data = json.load(open(self.data_dict.agent_iden_caps, "r"))
@@ -57,14 +53,9 @@ class negDataset(Dataset):
 
         vid_name, ev = self.vid_ev_list[idx]
 
-        if self.frames_flag:
-            frames = get_frames_tensor(
-                frames_path=self.data_dict.frames_path,
-                vid_name=vid_name,
-                transform=self.transform,
-            )
-        else:
-            frames = "{}/{}.mp4".format(self.data_dict.videos_10s_path, vid_name)
+        # frames = get_frames_tensor(frames_path=self.data_dict.frames_path,
+        #                            vid_name=vid_name,
+        #                            transform=self.transform)
 
         pos_cap = self.ev_data[vid_name][ev]["pos"]
         neg_cap = self.ev_data[vid_name][ev]["neg"]
@@ -72,7 +63,7 @@ class negDataset(Dataset):
         data = {
             "vid_name": vid_name,
             "event": ev,
-            "frames": frames,
+            "vid_path": join(self.data_dict.frames_path, vid_name + ".mp4"),
             "pos_cap": pos_cap,
             "neg_cap": neg_cap,
         }
