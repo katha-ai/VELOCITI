@@ -125,7 +125,7 @@ We also provide the scripts for evaluating the Video-LLMs in our work. These scr
 
 
 ## [Video LLaVA](https://github.com/PKU-YuanGroup/Video-LLaVA)
-This can be evaluated by running the below command with the test name. Scripts are provided in folder `video_llava/`
+This can be evaluated by running the below command with the test name. Scripts are provided in the folder `video_llava/`
 
 ```
 python video_llava_eval.py --test ivat \
@@ -139,6 +139,8 @@ python video_llava_eval.py --test ivat \
 ## [PLLaVA](https://github.com/magic-research/PLLaVA)
 The scripts with some more instructions are in the folder `pllava/`
 
+## [mPLUG-Owl-Video and Owl-Con Evaluation](https://github.com/Hritikbansal/videocon)
+The scripts with some more instructions are in the folder `videocon/`
 
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
