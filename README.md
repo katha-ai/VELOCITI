@@ -142,6 +142,9 @@ The scripts with some more instructions are in the folder `pllava/`
 ## [mPLUG-Owl-Video and Owl-Con Evaluation](https://github.com/Hritikbansal/videocon)
 The scripts with some more instructions are in the folder `videocon/`
 
+## [Gemini 1.5 Flash](https://deepmind.google/technologies/gemini/flash/)
+The scripts with some more instructions are in the folder `gemini/`
+
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
