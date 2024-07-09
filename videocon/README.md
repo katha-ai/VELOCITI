@@ -8,6 +8,9 @@ For the inference, follow the instructions provided in the [Entailment-Inference
 
 - Skip steps 1 and 2.
 - Instead run `gen_input_csv.py` to obtain the input_csv files for any of the tests.
+    ```
+    python gen_input_csv.py --test ag_iden
+    ```
 - In step 3, pass the generated input csv using the `--input_csv` parameter
 
     ```
