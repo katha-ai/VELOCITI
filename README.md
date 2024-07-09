@@ -2,6 +2,15 @@
 
 # VELOCITI: Can Video Language Models Bind Semantic Concepts Through Time?
 
+<p float="left">
+  <a href="https://arxiv.org/abs/2406.10889v1">
+    <img src="https://img.shields.io/badge/arXiv-2406.10889-b31b1b.svg" alt="arXiv"/>
+  </a>
+  <a href="https://katha-ai.github.io/projects/velociti/">
+    <img src="https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white" alt="Github Pages"/>
+  </a>
+</p>
+
 
 ## Welcome to the VELOCITI, this repository is to provide code for Evaluation of models on VELOCITI, and provide a jupyter notebook to visualize all the data presented in the benchmark.
 
@@ -136,14 +145,31 @@ python video_llava_eval.py --test ivat \
 
 <hr>
 
+## [VERA](https://huggingface.co/liujch1998/vera)
+The scripts with some more instructions are in the folder `VERA/`
+
 ## [PLLaVA](https://github.com/magic-research/PLLaVA)
-The scripts with some more instructions are in the folder `pllava/`
+Please refer to the folder `pllava/`
 
 ## [mPLUG-Owl-Video and Owl-Con Evaluation](https://github.com/Hritikbansal/videocon)
-The scripts with some more instructions are in the folder `videocon/`
+Please check the folder `videocon/`
 
 ## [Gemini 1.5 Flash](https://deepmind.google/technologies/gemini/flash/)
-The scripts with some more instructions are in the folder `gemini/`
+Please check the folder `gemini/`
+
+## BibTeX
+If you find our work useful, please cite as below
+
+```
+@article{velociti,
+        title={VELOCITI: Can Video-Language Models Bind Semantic Concepts Through Time?},
+        author={Saravanan, Darshana and Singh, Darshan and Gupta, Varun and Khan, Zeeshan and Gandhi, Vineet and Tapaswi, Makarand},
+        journal={arXiv:2406.10889},
+        year={2024}
+    }
+```
+
+
 
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
