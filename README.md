@@ -127,6 +127,11 @@ python main_eval.py --num_workers 4 \
                     --seed 1000
 
 ```
+# Plausibility Estimation 🧪
+
+## [VERA](https://huggingface.co/liujch1998/vera)
+To establish that captions in VELOCITI indeed require visual modality and can't simply be solved by a textual reasoning model, we evaluate and provide the script for VERA, a plausibility estimation model.
+The scripts with some more instructions are in the folder `VERA/`
 
 # Video-LLM Evaluations 📽️
 
@@ -145,8 +150,7 @@ python video_llava_eval.py --test ivat \
 
 <hr>
 
-## [VERA](https://huggingface.co/liujch1998/vera)
-The scripts with some more instructions are in the folder `VERA/`
+
 
 ## [PLLaVA](https://github.com/magic-research/PLLaVA)
 Please refer to the folder `pllava/`
