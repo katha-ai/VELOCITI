@@ -139,7 +139,7 @@ def main(args, data_dict):
     df_data = pd.read_csv(input_file_path)
     print("Length of the csv:", len(df_data))
 
-    args.gemini_gcp_key = 'AIzaSyBGU2lpmIwprPCw7wYkB82yYpwoLUQ4p10'
+    args.gemini_gcp_key = 'KEY'
     genai.configure(api_key=args.gemini_gcp_key)
 
     model = create_model()
