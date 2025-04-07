@@ -43,7 +43,7 @@ python vidllm_eval.py --frames_root 'velociti_videos' \
                       --num_workers 0 \
                       --eval_type entail
 ```
-Use `eval_type` arguement to swicth between mcq and enatailment evaluation schemes.
+Use `eval_type` argument to swicth between mcq and enatailment evaluation schemes.
 
 The above scripts generate `.csv` files containing the predictions for each sample in the dataset. After this, run `metrics.py` to compute the metrics mentioned in the paper.
 
