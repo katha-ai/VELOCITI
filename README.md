@@ -1,9 +1,13 @@
 <img src="assets/run.ico" width=70 height=70/> 
 
-# VELOCITI: Benchmarking Video-Language Compositional Reasoning with Strict Entailment?
+# VELOCITI: Benchmarking Video-Language Compositional Reasoning with Strict Entailment
+
+
+[![arXiv](https://img.shields.io/badge/arXiv-2406.10889-b31b1b.svg)]([https://arxiv.org/abs/1234.56789](https://arxiv.org/abs/2406.10889))
+[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/katha-ai-iiith/VELOCITI)
+
 
 ⭐️ For instant visualization of data samples, please visit our [Project Page](https://katha-ai.github.io/projects/velociti/)
-
 
 ### Setting-up the Environment
 Create an environment in the choice of your environment manager, and simply install the requirement via
@@ -64,11 +68,16 @@ The evaluation script for Gemini is `gemini/eval.py`. Note that this may need up
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 This work is licensed under a
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa],
+
+with the following **additional clause** :
+
+🚨 VELOCITI may never be use to tune the parameters of any model, and is strictly a test set.
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+
 
