@@ -20,7 +20,15 @@ The code is tested to run with `python 3.11.8`.
 
 ### Setting-up Data 💿
 
-- The data is available at [HuggingFace](https://huggingface.co/datasets/katha-ai-iiith/VELOCITI).
+The data is available at [HuggingFace](https://huggingface.co/datasets/katha-ai-iiith/VELOCITI).
+
+Use the below command download the entire dataset along with the videos.
+
+```
+from huggingface_hub import snapshot_download
+
+snapshot_download(repo_id="katha-ai-iiith/VELOCITI", repo_type='dataset', cache_dir='/path/to/hf/datasets')
+```
 
 
 ### Evaluate with VELOCITI
