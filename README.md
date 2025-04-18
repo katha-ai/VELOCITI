@@ -29,6 +29,17 @@ from huggingface_hub import snapshot_download
 
 snapshot_download(repo_id="katha-ai-iiith/VELOCITI", repo_type='dataset', cache_dir='/path/to/hf/datasets')
 ```
+Check if the videos are downloaded.
+
+```
+ls /path/to/hf/datasets/datasets--katha-ai-iiith--VELOCITI/snapshots/*/velociti_videos.zip
+```
+If you wish to evaluate CLIP style of model, extract the frames using `utils/extract_frames.py`.
+
+```
+python utils/extract_frames.py --videos_dir 'velociti_videos' \
+                               --frames_dir 'velociti_frames'
+```
 
 
 ### Evaluate with VELOCITI
